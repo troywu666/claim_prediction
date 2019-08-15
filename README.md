@@ -89,7 +89,7 @@ train[values].corr().iplot(kind = 'heatmap', text = train[values].corr().values)
 
 ![png](README\newplot1.png)
 
-**可见calc类的数据没有相关性**
+* 可见calc类的数据没有相关性
 
 ```python
 corr_values = values.copy()
@@ -125,17 +125,57 @@ df.iplot(kind = 'bar', barmode = 'stack')
 
 ![png](README\newplot3.png)
 
+* ps_ind_14与ps_ind_10_bin,ps_ind_11_bin,ps_ind_12_bin,ps_ind_13_bin相关，而这4项二分类取零较多，ps_ind_14空值较多
 
+##### 3.4.1.2、测试集二分类取值占比
 
+```python
+import cufflinks as cf
 
+test_bin_zero_list = []
+test_bin_one_list = []
 
+for col in bin_cols:
+    temp = test[col].value_counts()
+    test_bin_zero_list.append(temp[0])
+    test_bin_one_list.append(temp[1])
 
+pd.DataFrame({'zero_counts': test_bin_zero_list, 'one_counts': test_bin_one_list}, 
+             index = bin_cols).iplot(kind = 'bar', barmode = 'stack')
+```
 
+![png](README\newplot4.png)
 
+##### 各二分类特征target取值占比
 
+```python
+train_1 = train[train.target == 1]
+train_0 = train[train.target == 0]
 
+k = 0
+#plt.figure(figsize = (32, 24))
+for col in bin_cols:
+    temp0 = train_0[col].value_counts()
+    bin_zero_t0 = temp0[0]
+    bin_one_t0 = temp0[1]
+    temp1 = train_1[col].value_counts()
+    bin_zero_t1 = temp1[0]
+    bin_one_t1 = temp1[1]
+    one_list = (bin_zero_t1 / (bin_zero_t0 + bin_zero_t1), 
+                bin_one_t1 / (bin_one_t0 + bin_one_t1))
+    if k == 0:
+        df = pd.DataFrame({col: one_list}, index = ['feature: 0', 'feature: 1'])
+    if k != 0:
+        df = pd.concat([df, pd.DataFrame({col: one_list}, 
+                                     index = ['feature: 0', 'feature: 1'])], 
+                       axis = 1, sort = False).round(2)
+    k += 1
+df.iplot(kind = 'barh', subplots = True, shape = (5, 4))
+```
 
+![png](README/newplot5.png)
 
+#### 3.4.2、多分类特征分析
 
 
 
