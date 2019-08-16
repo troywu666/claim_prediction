@@ -64,7 +64,7 @@ for i in sorted(train_null_values, key = lambda x: x[1], reverse = True):
 msno.matrix(train[train_col_missing], color=(0.42, 0.1, 0.05))
 ```
 
-![png](README\output1.png)
+![png](README/output1.png)
 
 #### 3.2.2、分析缺失数据间的相关性
 
@@ -72,7 +72,7 @@ msno.matrix(train[train_col_missing], color=(0.42, 0.1, 0.05))
 msno.heatmap(df = train[train_col_missing])
 ```
 
-![png](README\output2.png)
+![png](README/output2.png)
 
 **ps_car_01_cat与ps_ind_02_cat与ps_ind_04_cat正相关**
 
@@ -82,9 +82,9 @@ msno.heatmap(df = train[train_col_missing])
 
 * 同理，将test数据集的缺失值情况进行可视化
 
-![png](README\output3.png)
+![png](README/output3.png)
 
-![png](README\output4.png)
+![png](README/output4.png)
 
 
 
@@ -95,7 +95,7 @@ import cufflinks as cf
 train[values].corr().iplot(kind = 'heatmap', text = train[values].corr().values)
 ```
 
-![png](README\newplot1.png)
+![png](README/newplot1.png)
 
 **可见calc类的数据没有相关性**
 
@@ -107,7 +107,7 @@ for col in values:
 train[corr_values].corr().iplot(kind = 'heatmap', colorscale = 'spectral')
 ```
 
-![png](README\newplot2.png)
+![png](README/newplot2.png)
 
 **ps_ind_16_bin与ps_ind_17_bin与ps_ind_18_bin有强负相关**
 
@@ -135,7 +135,7 @@ df = pd.DataFrame({'zero_counts': train_bin_zero_list, 'one_counts': train_bin_o
 df.iplot(kind = 'bar', barmode = 'stack')
 ```
 
-![png](README\newplot3.png)
+![png](README/newplot3.png)
 
 * ps_ind_14与ps_ind_10_bin,ps_ind_11_bin,ps_ind_12_bin,ps_ind_13_bin相关，而这4项二分类取零较多，ps_ind_14空值较多
 
@@ -156,7 +156,7 @@ pd.DataFrame({'zero_counts': test_bin_zero_list, 'one_counts': test_bin_one_list
              index = bin_cols).iplot(kind = 'bar', barmode = 'stack')
 ```
 
-![png](README\newplot4.png)
+![png](README/newplot4.png)
 
 ##### 各二分类特征target取值占比
 
@@ -222,7 +222,7 @@ for col in cat_cols:
     sns.barplot(x = 'names', y = 'target1 counts', data = data)
 ```
 
-![png](README\output5.png)
+![png](README/output5.png)
 
 **标记为-1 的值是空值，可看出空值对target具有影响，后续需要将空值标记为一种类别**
 
@@ -244,7 +244,7 @@ for col in cat_cols:
     sns.barplot(x = 'names', y = 'counts', data = data)
 ```
 
-![png](README\output6.png)
+![png](README/output6.png)
 
 **ps_car_08_cat实际上是二分类，ps_car_11_cat更接近为连续变量**
 
@@ -264,7 +264,7 @@ for col in cat_cols:
     sns.barplot(x = 'names', y = 'counts', data = data)
 ```
 
-![png](README\output7.png)
+![png](README/output7.png)
 
 #### 3.4.3、顺序与连续特征分析
 
@@ -325,7 +325,7 @@ for col in conti_or_ord:
     sns.distplot(train[col].dropna(), kde = False, color = 'g')
 ```
 
-![png](README\output8.png)
+![png](README/output8.png)
 
 ```python
 conti_cols = ['ps_car_13', 'ps_reg_03', 'ps_car_14', 'ps_car_12']
@@ -343,7 +343,7 @@ for col in conti_or_ord:
     sns.distplot(test[col].dropna(), color = 'g', kde = False)
 ```
 
-![png](README\output9.png)
+![png](README/output9.png)
 
 ***可看出数据分布不是正态分布，在后续处理空值数据时，应该选用中位数***
 
@@ -360,7 +360,7 @@ for col in conti_cols:
     sns.distplot(tuple(train[col].dropna()))
 ```
 
-![png](README\output10.png)
+![png](README/output10.png)
 
 ```python
 k = 0
@@ -373,7 +373,7 @@ for col in conti_cols:
     sns.distplot(tuple(test[col].dropna()))
 ```
 
-![png](README\output11.png)
+![png](README/output11.png)
 
 ##### 3.4.3.2、顺序变量对target的影响
 
@@ -404,7 +404,7 @@ for col in conti_or_ord:
     sns.barplot(x = 'names', y = 'target1', data = data)
 ```
 
-![png](README\output12.png)
+![png](README/output12.png)
 
 ##### 3.4.3.3、对不同target取值的连续变量做KDE密度曲线图
 
@@ -425,7 +425,7 @@ for col in conti_cols:
     sns.kdeplot(train_rank1_count[col])
 ```
 
-![png](README\output13.png)
+![png](README/output13.png)
 
 对这几个特征而言，target=1 意味着它们的密度曲线顶峰会低一些，局部最小点会高一些，曲线会平滑一些，但是大体来说，分布没有发生根本的改变
 
@@ -458,7 +458,7 @@ for col in train_missing_cont_ord:
 data.iplot(kind = 'bar', subplots = True, shape = (2, 2))
 ```
 
-![png](README\output14.png)
+![png](README/output14.png)
 
 ***对于ps_car_11，ps_car_12，缺失值意味着 target 不会等于 1，但缺失值个数分别为1和5，因此该信息不那么重要***
 
@@ -507,7 +507,7 @@ train_clean.loc[train_clean['ps_ind_05_cat'] == -1, 'missing_total_2'] += 1
 train_clean.loc[train_clean['ps_car_07_cat'] == -1, 'missing_total_2'] += 1
 ```
 
- ![png](README\output15.png)
+ ![png](README/output15.png)
 
 ```python
 test_clean['missing_total_0'] = np.zeros(len(test_clean))
@@ -577,7 +577,7 @@ df.iplot(kind = 'bar', subplots = True, shape = (1, 2))
 
 
 
-![png](README\newplot6.png)
+![png](README/newplot6.png)
 
 ### 4.3、多分类特征处理
 
