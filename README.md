@@ -6,7 +6,7 @@
 
 ## 1、背景和目标
 
-背景：保险公司为用户提供保险服务，若能预测出保单持有人在次年是否会提出保险索赔，将可以为保险公司提供决策方向，合理提供保险服务，提升保险公司营收。
+背景：
 
 目标：根据所提供的汽车保单持有人的数据建立机器学习模型，分析保单持有人是否会在次年提出索赔。
 
@@ -157,6 +157,8 @@ pd.DataFrame({'zero_counts': test_bin_zero_list, 'one_counts': test_bin_one_list
 ```
 
 ![png](README/newplot4.png)
+
+检查训练集和测试集的分布是否有差异，将有差异的数据进行剔除
 
 ##### 各二分类特征target取值占比
 
@@ -429,7 +431,7 @@ for col in conti_cols:
 
 对这几个特征而言，target=1 意味着它们的密度曲线顶峰会低一些，局部最小点会高一些，曲线会平滑一些，但是大体来说，分布没有发生根本的改变
 
-##### 3.4.3.4、有缺失数据的顺序或连续数据对target取值的影响、
+##### 3.4.3.4、有缺失数据的顺序或连续数据对target取值的影响
 
 ```python
 train_missing_cont_ord = list(set(train_col_missing).intersection(set(cate_con_or_ord)))
@@ -460,7 +462,7 @@ data.iplot(kind = 'bar', subplots = True, shape = (2, 2))
 
 ![png](README/output14.png)
 
-***对于ps_car_11，ps_car_12，缺失值意味着 target 不会等于 1，但缺失值个数分别为1和5，因此该信息不那么重要***
+***对于ps_car_11，ps_car_12，缺失值意味着 target 不会等于 1，但缺失值个数分别为1和5，因此该信息不那么重要；剩下两个缺失特征采用值（0,1）构建新的特征记录该特征是否缺失***
 
 ## 4、数据处理
 
